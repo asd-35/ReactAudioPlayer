@@ -1,14 +1,17 @@
 import React from 'react'
 import "./Audio.css"
+import {AiOutlineFastBackward, AiOutlineFastForward} from 'react-icons/ai'
+import { FaPlay, FaPause} from "react-icons/fa"
+import {BsSlash} from "react-icons/bs"
 
 const Audio = () => {
     return (
         <div className="container">
             <audio></audio>
             <div className="buttons">
-                <button>roll 30 back</button>
-                <button>play / pause</button>
-                <button>roll 30 forward</button>
+                <button><AiOutlineFastBackward /> 30 </button>
+                <button><FaPlay /> <BsSlash /> <FaPause /> </button>
+                <button>30 <AiOutlineFastForward /></button>
             </div>
             <div>0:00</div>
             <div>
