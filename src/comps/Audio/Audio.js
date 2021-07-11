@@ -1,17 +1,27 @@
-import React from 'react'
+import React, {useState} from 'react'
 import "./Audio.css"
 import {AiOutlineFastBackward, AiOutlineFastForward} from 'react-icons/ai'
 import { FaPlay, FaPause} from "react-icons/fa"
-import {BsSlash} from "react-icons/bs"
+
 
 const Audio = () => {
+    const[isPlaying,setIsPlaying] = useState(true);
+    
+    const handlePlayPause = () => {
+        if(isPlaying){
+            setIsPlaying(false)
+        }else{
+            setIsPlaying(true)
+        }
+    }
+    
     return (
         <div className="container">
-            <audio></audio>
+            <audio src="song.mp3"></audio>
             <div className="buttons">
-                <button><AiOutlineFastBackward /> 30 </button>
-                <button><FaPlay /> <BsSlash /> <FaPause /> </button>
-                <button>30 <AiOutlineFastForward /></button>
+                <button className ="arrows"><AiOutlineFastBackward /> 30 </button>
+                <button onClick={handlePlayPause}> {isPlaying ? <FaPlay /> : <FaPause />} </button>
+                <button className ="arrows">30 <AiOutlineFastForward /></button>
             </div>
             <div>0:00</div>
             <div>

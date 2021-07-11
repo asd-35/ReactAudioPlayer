@@ -12,7 +12,21 @@
     
     
     flex-direction: row;
-    background: chartreuse;
+    text-align: center;
     justify-content: space-around;
-     
+    
+}
+
+.arrows{
+    border: none;
+    background: none;
+    font-family: monospace;
+    text-align: center;
+}
+
+.arrows:hover{
+    border: none;
+    background: none;
+    font-family: monospace;
+    color: darkorange;
 }
