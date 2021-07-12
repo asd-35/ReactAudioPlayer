@@ -20,14 +20,14 @@ const Audio = () => {
             <audio src="song.mp3"></audio>
             <div className="buttons">
                 <button className ="arrows"><AiOutlineFastBackward /> 30 </button>
-                <button onClick={handlePlayPause}> {isPlaying ? <FaPlay /> : <FaPause />} </button>
+                <button className ="playPause" onClick={handlePlayPause}> {isPlaying ? <FaPlay /> : <FaPause />} </button>
                 <button className ="arrows">30 <AiOutlineFastForward /></button>
             </div>
-            <div>0:00</div>
+            <div className="currentTime">0:00</div>
             <div>
-                <input type="range"/>
+                <input type="range" className="bar"/>
             </div>
-            <div>3:00</div>
+            <div className="durationTime">3:00</div>
         </div>
     )
 }

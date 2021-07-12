@@ -2,31 +2,62 @@
     display: flex;
     border: black;
     border-style: solid;
-    flex-direction: column;
     align-items: center;
-    justify-content: space-around; 
+    justify-content: center; 
 }
 
 .buttons{
     display: flex;
-    
-    
     flex-direction: row;
     text-align: center;
     justify-content: space-around;
     
-}
+} 
 
 .arrows{
     border: none;
     background: none;
     font-family: monospace;
-    text-align: center;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    font-size: 16px;
 }
 
 .arrows:hover{
     border: none;
     background: none;
     font-family: monospace;
-    color: darkorange;
+    color: lightblue;
 }
+
+.playPause{
+    background-color: lightblue;
+    border: none;
+    border-radius: 50%;
+    width: 75px;
+    height: 75px;
+    font-size: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.currentTime,
+.durationTime{
+    font-size: 16px;
+    font-family: monospace;
+}
+
+.bar{
+    background: black;
+    outline: none;
+    
+    height: 11px;
+    border-radius: 10px;
+    border: lightblue;
+    border-style: solid;
+    appearance: none;
+    
+}
+
