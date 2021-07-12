@@ -1,10 +1,10 @@
 import React from 'react';
-import Audio from './Audio/Audio';
+import AudioPlayer from './Audio/AudioPlayer';
 
 function App() {
   return (
     <div>
-      <Audio></Audio>
+      <AudioPlayer />
     </div>
     
     
