@@ -1,4 +1,4 @@
-import React, {useState,useRef} from 'react'
+import React, {useState,useRef,useEffect} from 'react'
 import "./Audio.css"
 import {AiOutlineFastBackward, AiOutlineFastForward} from 'react-icons/ai'
 import { FaPlay, FaPause} from "react-icons/fa"
@@ -6,20 +6,36 @@ import { FaPlay, FaPause} from "react-icons/fa"
 
 const AudioPlayer = () => {
     const[isPlaying,setIsPlaying] = useState(false);
-    
+    const[duration,setDuration] = useState(0);
+    const[currentTime,setCurrentTime] = useState(0);
     
     const audioMp3 = useRef();
+    const progBar = useRef();
 
+    useEffect( () => {
+        let mins = Math.floor(audioMp3.current.duration / 60);
+        let secs = Math.floor(audioMp3.current.duration % 60);
+        setDuration(mins + ":" + secs)
+        progBar.current.max = Math.floor(audioMp3.current.duration);
+
+    },[audioMp3?.current?.loadedmetadata,audioMp3?.current?.readyState])
+    
     const handlePlayPause = () => {
         setIsPlaying(!isPlaying);
-            audioMp3.current.pause()
-        if(isPlaying){
             
+        if(isPlaying){
+            audioMp3.current.pause()
         }else{
             audioMp3.current.play()
         }
     }
 
+    const changeBar = () => {
+        audioMp3.current.currentTime = progBar.current.value;
+        let mins = Math.floor(progBar.current.value / 60);
+        let secs = Math.floor(progBar.current.value % 60);
+        setCurrentTime(mins + ":" + secs);
+    }
     
     
     return (
@@ -30,11 +46,11 @@ const AudioPlayer = () => {
                 <button className ="playPause" onClick={handlePlayPause}> {isPlaying ? <FaPause /> : <FaPlay />} </button>
                 <button className ="arrows">30 <AiOutlineFastForward /></button>
             </div>
-            <div className="currentTime">0:00</div>
+            <div className="currentTime">{currentTime}</div>
             <div>
-                <input type="range" className="bar"/>
+                <input type="range" className="bar" ref={progBar} defaultValue="0" onChange={changeBar}/>
             </div>
-            <div className="durationTime">3:00</div>
+            <div className="durationTime">{duration}</div>
         </div>
     )
 }
