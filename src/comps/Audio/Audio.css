@@ -1,7 +1,5 @@
 .container{
     display: flex;
-    border: black;
-    border-style: solid;
     align-items: center;
     justify-content: center; 
 }
