@@ -11,6 +11,7 @@ const AudioPlayer = () => {
     
     const audioMp3 = useRef();
     const progBar = useRef();
+    const animationRef = useRef();
 
     useEffect( () => {
         let mins = Math.floor(audioMp3.current.duration / 60);
@@ -21,13 +22,25 @@ const AudioPlayer = () => {
     },[audioMp3?.current?.loadedmetadata,audioMp3?.current?.readyState])
     
     const handlePlayPause = () => {
-        setIsPlaying(!isPlaying);
+        const prevVal = isPlaying;
+        setIsPlaying(!prevVal);
             
-        if(isPlaying){
-            audioMp3.current.pause()
-        }else{
+        if(!prevVal){
+            
             audioMp3.current.play()
+            animationRef.current = requestAnimationFrame(whilePlaying);
+        }else{
+            audioMp3.current.pause()
+            cancelAnimationFrame(animationRef.current)
         }
+    }
+
+    const whilePlaying = () => {
+        progBar.current.value = audioMp3.current.currentTime;
+        let mins = Math.floor(progBar.current.value / 60);
+        let secs = Math.floor(progBar.current.value % 60);
+        setCurrentTime(mins + ":" + secs);
+        animationRef.current = requestAnimationFrame(whilePlaying);
     }
 
     const changeBar = () => {
@@ -37,14 +50,24 @@ const AudioPlayer = () => {
         setCurrentTime(mins + ":" + secs);
     }
     
+    const back = () => {
+        progBar.current.value = Number(progBar.current.value - 30)
+        console.log(progBar.current)
+        changeBar()
+    }
+    
+    const forward = () => {
+        progBar.current.value = Number(progBar.current.value + 30)
+        changeBar()
+    }
     
     return (
         <div className="container">
-            <audio ref={audioMp3} src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+            <audio preload="metadata" ref={audioMp3} src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
             <div className="buttons">
-                <button className ="arrows"><AiOutlineFastBackward /> 30 </button>
+                <button className ="arrows" onClick={back}><AiOutlineFastBackward /> 30 </button>
                 <button className ="playPause" onClick={handlePlayPause}> {isPlaying ? <FaPause /> : <FaPlay />} </button>
-                <button className ="arrows">30 <AiOutlineFastForward /></button>
+                <button className ="arrows" onClick={forward}>30 <AiOutlineFastForward /></button>
             </div>
             <div className="currentTime">{currentTime}</div>
             <div>
